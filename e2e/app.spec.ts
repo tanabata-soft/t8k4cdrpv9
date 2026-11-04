@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('初回に全音源が一括ダウンロードされ、キャッシュに揃う', async ({ page }) => {
   await page.goto('/');
-  // 一括ダウンロードが終わると、音源キャッシュに2曲分が揃い、表示は消える
+  // 一括ダウンロードが終わると、音源キャッシュに3曲分が揃い、表示は消える
   await expect
     .poll(
       async () =>
@@ -12,7 +12,7 @@ test('初回に全音源が一括ダウンロードされ、キャッシュに�
         }),
       { timeout: 30_000 },
     )
-    .toBe(2);
+    .toBe(3);
   await expect(page.locator('#dl-banner')).toBeHidden();
   await expect(page.locator('body')).toHaveAttribute('data-downloading', '0');
 });
@@ -32,6 +32,10 @@ test('短冊ジャケットが開き、タップで裏面パネルに反転す�
   await expect(nb).toContainText('Confession Rock');
   await expect(nb).toContainText('Last Train Ballad');
   await expect(nb).toContainText('2:42');
+  await expect(nb).toContainText('午前二時の境界線');
+  await expect(nb).toContainText('BONUS');
+  await expect(nb).toContainText('2AM Boundary Rock');
+  await expect(nb).toContainText('2:57');
   await expect(nb).toContainText('3:00');
   await expect(nb.locator('#version-line')).toContainText('デジタルシングルCD v');
   await page.locator('#flip').click();
@@ -46,6 +50,11 @@ test('再生ボタンから1曲目が始まり、「次」で2曲目に進む', 
   await page.getByRole('button', { name: '次の曲' }).click();
   await expect(page.locator('#p-title')).toContainText('終電のホーム');
   await expect(page.locator('body')).toHaveAttribute('data-track', '1');
+  // さらにもう一度「次」で、ボーナストラックに進む
+  await page.getByRole('button', { name: '次の曲' }).click();
+  await expect(page.locator('#p-title')).toContainText('午前二時の境界線');
+  await expect(page.locator('#p-title')).toContainText('ボーナストラック');
+  await expect(page.locator('body')).toHaveAttribute('data-track', '2');
   const lines = await page.locator('#lyrics-box p').count();
   expect(lines).toBeGreaterThan(10);
 });

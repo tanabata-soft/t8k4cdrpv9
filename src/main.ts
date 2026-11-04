@@ -62,6 +62,12 @@ if (SINGLE) {
     const nm = document.createElement('span');
     nm.className = 'nm';
     nm.append(document.createTextNode(t.title));
+    if (t.bonus) {
+      const bd = document.createElement('span');
+      bd.className = 'bonus';
+      bd.textContent = 'BONUS';
+      nm.append(bd);
+    }
     const gn = document.createElement('span');
     gn.className = 'gn';
     gn.textContent = t.genre;
