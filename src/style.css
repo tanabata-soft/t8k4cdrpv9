@@ -192,6 +192,7 @@ button.link { border: 0; background: transparent; color: var(--amber); text-deco
 .bn-track .no { color: var(--amber); font-size: 12px; width: 18px; flex: none; }
 .bn-track .nm { flex: 1; line-height: 1.4; }
 .bn-track .gn { display: block; color: var(--sub); font-size: 10.5px; letter-spacing: .05em; margin-top: 1px; }
+.bn-track .bonus { color: #0e1524; background: var(--amber); font-size: 9px; border-radius: 3px; padding: 1px 5px; margin-left: 8px; letter-spacing: .1em; vertical-align: 2px; }
 .bn-track .tm { color: #c8cede; font-size: 12px; flex: none; }
 .backnote .version { margin-top: auto; padding-top: 10px; font-size: 11px; letter-spacing: .12em; }
 /* リピート切替ボタン（1曲モードでバッジと枠を出す） */

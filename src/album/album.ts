@@ -40,7 +40,7 @@ export const HOWTO_EXTRA = '再生画面では歌詞が曲に合わせて流れ�
 
 /** 奥付（シングルでは裏面ノートの下部に置く） */
 export const COLOPHON: string[] = [
-  `『${ALBUM.title}』（全2曲／総再生時間 約6分）`,
+  `『${ALBUM.title}』（全2曲＋ボーナストラック1曲／総再生時間 約9分）`,
   `${ALBUM.catalog} ― ${ALBUM.format}`,
   '歌詞は音源の字幕をもとに収録しました。',
 ];
