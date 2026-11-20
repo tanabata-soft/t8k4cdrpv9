@@ -1,0 +1,49 @@
+// 曲と譜面のデータを組み立てる（エンジン側）。
+// 曲リストそのものは作品データの src/game/songs.ts（SONG_DEFS）が正本。
+// 譜面は src/game/data/charts.json（scripts/generate-charts.py が音源解析で生成）、
+// 歌詞は src/game/data/lyrics.json（scripts/gen-game-lyrics.mjs が CD 側の
+// 検証済み歌詞同期データ src/album/sync.ts から変換して生成）。
+import type { LyricLine, SongData, SongId } from './logic';
+import raw from './data/charts.json';
+import lyricsRaw from './data/lyrics.json';
+import { SONG_DEFS } from './songs';
+
+export interface SongEntry {
+  id: SongId;
+  data: SongData;
+  /** 音源ファイルの URL（ビルドで assets に出力され、Service Worker の precache に入る） */
+  audioUrl: string;
+  /** ジャケット絵の URL */
+  jacketUrl: string;
+  /**
+   * ジャケット絵の四辺に焼き込まれた紙枠の幅（実画像ピクセル。絵は 1024×1024）。
+   * 演奏画面の背景では、この枠を除いた内側の絵だけを幅いっぱいの正方形で敷く
+   * （枠をなくして背景になじませる）。メニューのカルーセルや CD 側のジャケット
+   * 表示には使わない（枠も含めて見せる）。作品ごとの値は songs.ts に置く。
+   */
+  frameInset: number;
+  /** カルーセルでのジャケットの寄せ（CSS の object-position）。未指定は中央 */
+  slidePosition?: string;
+  /** 収録アルバム名（表示用） */
+  album: string;
+  genre: string;
+  /** 歌詞行（尺まで。無い曲は空配列） */
+  lyrics: LyricLine[];
+}
+
+const songs = raw as unknown as Record<SongId, SongData>;
+const lyrics = lyricsRaw as unknown as Record<SongId, LyricLine[]>;
+
+export const SONGS: SongEntry[] = SONG_DEFS.map((def) => ({
+  id: def.id,
+  data: songs[def.id],
+  lyrics: lyrics[def.id] ?? [],
+  audioUrl: def.audioUrl,
+  jacketUrl: def.jacketUrl,
+  frameInset: def.frameInset,
+  slidePosition: def.slidePosition,
+  album: def.album,
+  genre: def.genre,
+}));
+
+export const songById = (id: SongId): SongEntry => SONGS.find((s) => s.id === id) ?? SONGS[0];
