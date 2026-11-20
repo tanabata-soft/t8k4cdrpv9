@@ -14,12 +14,17 @@
 // - slidePosition: メニューのカルーセルでジャケットを寄せる位置（CSS の
 //   object-position）。絵の中の曲タイトルができるだけ収まる側へ寄せる。
 //   未指定なら中央
+// - accent: 曲のテーマ色（#rrggbb）。メニューの枠・光・ボタンなどのアクセント色
+//   として、選曲に合わせて切り替わる（オーナー決定 2026-11-20 のパターン3）。
+//   ジャケットから scripts/jacket-accent.py で抜き出す（視認性のために明度・
+//   彩度を持ち上げる処理込み）
 // - album: 収録アルバム名（表示用） / genre: ジャンル（表示用）
 //
 // 譜面（data/charts.json）と歌詞（data/lyrics.json）は生成物なので、ここには
 // 書かない。生成手順はデジタルCDエンジンの docs/PRODUCTION.md 参照。
 // このモジュールはデジタルCDエンジン v1.1.0 のリズムゲーム（任意モジュール）を
 // 取り込んだもの（2026-11-20、NK-S003 の実働版が素材）。
+// accent（テーマ色）はエンジン v1.2.0 の仕様で追加（2026-11-20）。
 import track01Audio from './assets/track01.mp3';
 import track01Jacket from './assets/track01.jpg';
 import track02Audio from './assets/track02.mp3';
@@ -33,6 +38,7 @@ export interface GameSongDef {
   jacketUrl: string;
   frameInset: number;
   slidePosition?: string;
+  accent: string;
   album: string;
   genre: string;
 }
@@ -43,6 +49,7 @@ export const SONG_DEFS: GameSongDef[] = [
     audioUrl: track01Audio,
     jacketUrl: track01Jacket,
     frameInset: 0,
+    accent: '#51a6d6',
     album: 'NK-S002 友達のままじゃ',
     genre: 'Confession Rock',
   },
@@ -51,6 +58,7 @@ export const SONG_DEFS: GameSongDef[] = [
     audioUrl: track02Audio,
     jacketUrl: track02Jacket,
     frameInset: 23,
+    accent: '#5189d6',
     album: 'NK-S002 友達のままじゃ',
     genre: 'Last Train Ballad',
   },
@@ -59,6 +67,7 @@ export const SONG_DEFS: GameSongDef[] = [
     audioUrl: track03Audio,
     jacketUrl: track03Jacket,
     frameInset: 0,
+    accent: '#d651ad',
     album: 'NK-S002 友達のままじゃ',
     genre: '2AM Boundary Rock',
   },

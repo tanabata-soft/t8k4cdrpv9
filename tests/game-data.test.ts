@@ -19,6 +19,13 @@ describe('リズムゲームの曲データ', () => {
     }
   });
 
+  it('テーマ色は全曲に #rrggbb で入っている', () => {
+    for (const entry of SONGS) {
+      expect(entry.accent, entry.id).toMatch(/^#[0-9a-f]{6}$/);
+      expect(entry.accentRgb, entry.id).toMatch(/^\d{1,3} \d{1,3} \d{1,3}$/);
+    }
+  });
+
   it('歌詞は全曲にあり、行が昇順で、尺の範囲内にある', () => {
     const raw = JSON.parse(
       readFileSync(new URL('../src/game/data/lyrics.json', import.meta.url), 'utf8'),
