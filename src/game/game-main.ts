@@ -109,6 +109,11 @@ function initGameMode(): { enter: () => void } {
     img.alt = '';
     img.draggable = false;
     if (entry.slidePosition) img.style.objectPosition = entry.slidePosition;
+    // 紙枠（frameInset）がある絵は、枠がスライドの外に出るよう拡大して表示する
+    // （ゲーム中の絵は game.ts が同じ frameInset で切り抜いている。選曲画面も揃える）
+    if (entry.frameInset > 0) {
+      img.style.transform = `scale(${1024 / (1024 - 2 * entry.frameInset)})`;
+    }
     const overlay = document.createElement('span');
     overlay.className = 'slide-overlay';
     const title = document.createElement('span');
