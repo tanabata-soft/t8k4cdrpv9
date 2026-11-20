@@ -18,6 +18,8 @@
 //   として、選曲に合わせて切り替わる（オーナー決定 2026-11-20 のパターン3）。
 //   ジャケットから scripts/jacket-accent.py で抜き出す（視認性のために明度・
 //   彩度を持ち上げる処理込み）
+// - bonus: ボーナストラックなら true（CD 側 tracks.ts の bonus と一致させる）。
+//   スライドの先頭に金色の BONUS チップが出る
 // - album: 収録アルバム名（表示用） / genre: ジャンル（表示用）
 //
 // 譜面（data/charts.json）と歌詞（data/lyrics.json）は生成物なので、ここには
@@ -39,6 +41,7 @@ export interface GameSongDef {
   frameInset: number;
   slidePosition?: string;
   accent: string;
+  bonus?: boolean;
   album: string;
   genre: string;
 }
@@ -68,6 +71,7 @@ export const SONG_DEFS: GameSongDef[] = [
     jacketUrl: track03Jacket,
     frameInset: 0,
     accent: '#d651ad',
+    bonus: true,
     album: 'NK-S002 友達のままじゃ',
     genre: '2AM Boundary Rock',
   },

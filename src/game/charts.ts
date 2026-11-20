@@ -33,6 +33,8 @@ export interface SongEntry {
   accent: string;
   /** accent の RGB 三つ組み（CSS の rgb(var(--song-accent-rgb) / α) 用） */
   accentRgb: string;
+  /** ボーナストラックか（CD 側 tracks.ts の bonus と一致させる。スライドに BONUS チップが出る） */
+  bonus: boolean;
   /** 収録アルバム名（表示用） */
   album: string;
   genre: string;
@@ -58,6 +60,7 @@ export const SONGS: SongEntry[] = SONG_DEFS.map((def) => ({
   slidePosition: def.slidePosition,
   accent: def.accent,
   accentRgb: accentRgbOf(def.accent),
+  bonus: def.bonus ?? false,
   album: def.album,
   genre: def.genre,
 }));

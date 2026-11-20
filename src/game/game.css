@@ -347,6 +347,15 @@
   white-space: nowrap;
 }
 
+/* ボーナストラックのチップ（CD 側の裏面バッジと同じ金色） */
+#view-game .chip.bonus-chip {
+  background: var(--gold);
+  border-color: transparent;
+  color: #1a1405;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
 #view-game .card {
   background: var(--surface);
   border: 1px solid var(--border);

@@ -116,6 +116,13 @@ function initGameMode(): { enter: () => void } {
     title.textContent = entry.data.title;
     const chips = document.createElement('span');
     chips.className = 'slide-chips';
+    if (entry.bonus) {
+      // ボーナストラックは CD 側の裏面バッジと同じ金色の BONUS チップを先頭に置く
+      const bonus = document.createElement('span');
+      bonus.className = 'chip bonus-chip';
+      bonus.textContent = 'BONUS';
+      chips.append(bonus);
+    }
     const album = document.createElement('span');
     album.className = 'chip slide-album';
     album.textContent = entry.album;
