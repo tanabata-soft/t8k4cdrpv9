@@ -280,7 +280,16 @@ function initGameMode(): { enter: () => void } {
     if (state) state.textContent = on ? 'オン' : 'オフ';
   }
 
+  /** 選んでいる曲のテーマ色を、画面のアクセント色（枠・光・ボタン）へ反映する */
+  function applyAccent(): void {
+    const entry = songById(selectedSong);
+    const root = $<HTMLElement>('view-game');
+    root.style.setProperty('--primary', entry.accent);
+    root.style.setProperty('--song-accent-rgb', entry.accentRgb);
+  }
+
   function renderMenu(): void {
+    applyAccent();
     for (const [id, b] of slides) {
       b.setAttribute('aria-pressed', String(id === selectedSong));
       b.dataset.active = String(id === selectedSong);

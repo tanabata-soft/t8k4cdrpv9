@@ -24,6 +24,15 @@ export interface SongEntry {
   frameInset: number;
   /** カルーセルでのジャケットの寄せ（CSS の object-position）。未指定は中央 */
   slidePosition?: string;
+  /**
+   * 曲のテーマ色（#rrggbb）。メニューの枠・光・ボタンなどのアクセント色に使う
+   * （選曲に合わせて切り替わる。オーナー決定 2026-11-20 のパターン3）。
+   * ジャケットから抜き出した代表色を、視認性のために明るくしてある。
+   * 作品ごとの値は songs.ts に置く。
+   */
+  accent: string;
+  /** accent の RGB 三つ組み（CSS の rgb(var(--song-accent-rgb) / α) 用） */
+  accentRgb: string;
   /** 収録アルバム名（表示用） */
   album: string;
   genre: string;
@@ -34,6 +43,11 @@ export interface SongEntry {
 const songs = raw as unknown as Record<SongId, SongData>;
 const lyrics = lyricsRaw as unknown as Record<SongId, LyricLine[]>;
 
+const accentRgbOf = (hex: string): string => {
+  const n = parseInt(hex.slice(1), 16);
+  return `${(n >> 16) & 255} ${(n >> 8) & 255} ${n & 255}`;
+};
+
 export const SONGS: SongEntry[] = SONG_DEFS.map((def) => ({
   id: def.id,
   data: songs[def.id],
@@ -42,6 +56,8 @@ export const SONGS: SongEntry[] = SONG_DEFS.map((def) => ({
   jacketUrl: def.jacketUrl,
   frameInset: def.frameInset,
   slidePosition: def.slidePosition,
+  accent: def.accent,
+  accentRgb: accentRgbOf(def.accent),
   album: def.album,
   genre: def.genre,
 }));
