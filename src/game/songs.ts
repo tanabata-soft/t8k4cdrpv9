@@ -60,7 +60,7 @@ export const SONG_DEFS: GameSongDef[] = [
     id: 'shuuden',
     audioUrl: track02Audio,
     jacketUrl: track02Jacket,
-    frameInset: 23,
+    frameInset: 24,
     accent: '#5189d6',
     album: 'NK-S002 友達のままじゃ',
     genre: 'Last Train Ballad',
