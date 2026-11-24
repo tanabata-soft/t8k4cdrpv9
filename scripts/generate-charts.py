@@ -283,6 +283,7 @@ SONGS = {
         "chorus_bonus": 0.5,
         "flick": True,
         "flick_budget": {"easy": 9, "normal": 13, "hard": 24},
+        "ballad": False,
     },
     "shuuden": {
         "title": "終電のホーム",
@@ -313,6 +314,7 @@ SONGS = {
         "chorus_bonus": 0.5,
         "flick": True,
         "flick_budget": {"easy": 7, "normal": 12, "hard": 15},
+        "ballad": False,
     },
 }
 
